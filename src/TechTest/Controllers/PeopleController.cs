@@ -37,15 +37,15 @@ namespace TechTest.Controllers
             }
             //If I could find the relative place (to AppStart > WebApiConfig), I would have added  the Json / camel case serializer settings in there so that this was not needed each time //
 
-            //Camel case the output 
-            var collectionOfPeopleJson = JsonConvert.SerializeObject(
-                CollectionOfPeople,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                }
-            );
-            return Ok(collectionOfPeopleJson);
+            //Camel case the output - not needed, this is done elsewhere in the program (after testing)
+            //var collectionOfPeopleJson = JsonConvert.SerializeObject(
+            //    CollectionOfPeople,
+            //    new JsonSerializerSettings
+            //    {
+            //        ContractResolver = new CamelCasePropertyNamesContractResolver()
+            //    }
+            //);
+            return Ok(CollectionOfPeople);
         }
 
         [HttpGet("{id}")]
@@ -67,15 +67,15 @@ namespace TechTest.Controllers
 
             }
 
-            //Camel case the output 
-            var SinglePersonJson = JsonConvert.SerializeObject(
-                SinglePersonInst,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                }
-            );
-            return Ok(SinglePersonJson);
+            //Camel case the output  not needed, this is done elsewhere in the program (after testing)
+            //var SinglePersonJson = JsonConvert.SerializeObject(
+            //    SinglePersonInst,
+            //    new JsonSerializerSettings
+            //    {
+            //        ContractResolver = new CamelCasePropertyNamesContractResolver()
+            //    }
+            //);
+            return Ok(SinglePersonInst);
 
             throw new NotImplementedException();
         }

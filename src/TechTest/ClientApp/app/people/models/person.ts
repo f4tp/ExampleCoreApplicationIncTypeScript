@@ -38,7 +38,7 @@ export class Person implements IPerson {
     // Example: 'Bo Bob' is a palindrome.
       var isPalindrome = true;
       //convert to lower case and strip whitespace
-      var formattedFullName = `${this.firstName}`.toLowerCase().replace(/\s/g, "");
+      var formattedFullName = `${this.fullName}`.toLowerCase().replace(/\s/g, "");
       //loop terminates half way through, if it gets to the middle point then it is a palindrome
       //loop terminates when char found not to match
       var i = 0;

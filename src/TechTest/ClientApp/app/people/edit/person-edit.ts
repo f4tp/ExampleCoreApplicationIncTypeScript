@@ -4,6 +4,8 @@ import { HttpClient, json } from 'aurelia-fetch-client';
 import { Person } from '../models/person';
 import { IColour } from '../interfaces/icolour';
 import { IPerson } from '../interfaces/iperson';
+//imported redirect for after successful post
+import { Redirect } from 'aurelia-router';
 
 @autoinject
 export class PersonEdit {
@@ -35,19 +37,67 @@ export class PersonEdit {
     return favouriteColour.id === checkBoxColour.id;
   }
 
-  async submit() {
+    async submit() {
 
-    // TODO: Step 7
-    //
-    // Implement the submit and save logic.
-    // Send a JSON request to the API with the newly updated
-    // this.person object. If the response is successful then
-    // the user should be navigated to the list page.
+        // TODO: Step 7
+        //
+        // Implement the submit and save logic.
+        // Send a JSON request to the API with the newly updated
+        // this.person object. If the response is successful then
+        // the user should be navigated to the list page.
 
-    throw new Error('Not Implemented');
-  }
+        
+        //I couldn't complete this without learning Aurelia TypeScript fully (I would have to take a tutorial on it), but this is a couple of methods I tried to use:
+
+
+        //method 2 (derived from other code I have seen written in this project / research)
+        var idNeeded = `${this.person.id}`.toString();
+        var dataNeeded = `${this.person}`;
+        this.http.fetch('/api/people/' + dataNeeded, {
+            method: 'put',
+            //body: json(`${this.person}`)
+            body: `${this.person}`
+        })
+            .then(response => response.json())
+            //.then(data => {
+            //    console.log(data);
+            //});
+   
+
+      //method 1 (derived from own research)
+      //HttpClient.call('http://localhost:64058/api/people/' + `${this.person.id}`, {
+      //HttpClient.call('http://localhost:64058/api/people/' + `${this.person.id}`, {
+      //    method: 'put',
+      //    body: `${this.person}`
+      //})
+      //    .success(function () {
+      //        //redirect here - as async call
+      //        new Redirect('/people');
+      //    })
+      //    .fail(function () {
+
+      //    })
+      //    .always(function () {
+
+      //    });
+
+  
+
+
+
+ 
+      //$.post('http://localhost:64058/api/person', `${this.person}`, function (personResponse) {
+
+      //      return personResponse;
+      //});
+
+    //throw new Error('Not Implemented');
+    }
 
   cancel() {
     this.router.navigate('people');
   }
-}
+
+
+};
+

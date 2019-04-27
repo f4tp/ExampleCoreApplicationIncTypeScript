@@ -35,7 +35,7 @@ namespace TechTest.Controllers
                 return Ok(nullArray);
 
             }
-            //If I could find the relative place (to AppStart > WebApiConfig), I would have added  the Json / camel case serializer settings in there so that this was not needed each time
+            //If I could find the relative place (to AppStart > WebApiConfig), I would have added  the Json / camel case serializer settings in there so that this was not needed each time //
 
             //Camel case the output 
             var collectionOfPeopleJson = JsonConvert.SerializeObject(

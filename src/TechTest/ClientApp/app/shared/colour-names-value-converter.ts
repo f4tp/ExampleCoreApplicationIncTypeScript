@@ -15,7 +15,7 @@ export class ColourNamesValueConverter {
       var stringifiedColours = "";
       
       if (colours !== null) {
-        //efficient way of sorting using lambda expressions
+        //efficient way of sorting using lambda expression / conditional operator
           colours.sort((a, b) => (a.name > b.name) ? 1 : -1);
 
           //iterator pattern 

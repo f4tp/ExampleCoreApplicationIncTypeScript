@@ -36,16 +36,20 @@ export class Person implements IPerson {
     // spaces and should also be case insensitive.
     //
     // Example: 'Bo Bob' is a palindrome.
-      var isPlaindrome = true;
+      var isPalindrome = true;
       //convert to lower case and strip whitespace
-      var formattedFirstName = `${this.firstName}`.toLowerCase().replace(/\s/g, "");
+      var formattedFullName = `${this.firstName}`.toLowerCase().replace(/\s/g, "");
       //loop terminates half way through, if it gets to the middle point then it is a palindrome
-      for (var i = 0; i < formattedFirstName.length / 2; i++) {
+      //loop terminates when char found not to match
+      var i = 0;
+      do {
           //iterate forwards through the string and check each character against the last one, regressing each time
-          if (formattedFirstName.charAt(i) !== formattedFirstName.charAt(formattedFirstName.length -1 -i)) {
-              isPlaindrome = false;
+          if (!(formattedFullName.charAt(i) === formattedFullName.charAt(formattedFullName.length - 1 - i))) {
+              isPalindrome = false;
           }
-      }
-      return isPlaindrome;
+          i++;
+      } while (i < formattedFullName.length / 2 && isPalindrome == true); 
+
+      return isPalindrome;
   }
 }

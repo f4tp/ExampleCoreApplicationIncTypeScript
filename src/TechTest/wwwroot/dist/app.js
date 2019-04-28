@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "edf31d2dbf2d43124fa4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b9453c0afcfcdf7bd999"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -9215,12 +9215,12 @@ class Person {
 /* harmony export (immutable) */ __webpack_exports__["a"] = Person;
 
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["e" /* computedFrom */])('firstName', 'lastName'),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["d" /* computedFrom */])('firstName', 'lastName'),
     __metadata("design:type", String),
     __metadata("design:paramtypes", [])
 ], Person.prototype, "fullName", null);
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["e" /* computedFrom */])('fullName'),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["d" /* computedFrom */])('fullName'),
     __metadata("design:type", Boolean),
     __metadata("design:paramtypes", [])
 ], Person.prototype, "palindrome", null);
@@ -9469,7 +9469,7 @@ var starting = run();
 /* unused harmony export ClassObserver */
 /* unused harmony export hasDeclaredDependencies */
 /* unused harmony export declarePropertyDependencies */
-/* harmony export (immutable) */ __webpack_exports__["y"] = computedFrom;
+/* harmony export (immutable) */ __webpack_exports__["x"] = computedFrom;
 /* unused harmony export ComputedExpression */
 /* unused harmony export createComputedObserver */
 /* unused harmony export elements */
@@ -9490,7 +9490,7 @@ var starting = run();
 /* unused harmony export Listener */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return NameExpression; });
 /* unused harmony export BindingEngine */
-/* harmony export (immutable) */ __webpack_exports__["x"] = observable;
+/* unused harmony export observable */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_aurelia_logging__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_aurelia_pal__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_aurelia_task_queue__ = __webpack_require__(10);
@@ -21191,7 +21191,7 @@ let PersonEdit = class PersonEdit {
     }
 };
 PersonEdit = __decorate([
-    __WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["d" /* autoinject */],
+    __WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["c" /* autoinject */],
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_aurelia_fetch_client__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1_aurelia_router__["b" /* Router */]])
 ], PersonEdit);
 
@@ -21228,34 +21228,49 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+//@inject(Element)
 let PeopleList = class PeopleList {
+    //public selectedDocument Document[];
+    //@observable selectedDocument;
     constructor(http) {
+        //trying to solve task 6 here also, selecting the elements
+        //still having problems
+        //onload = function () {
+        //    var tester = document.querySelector("#tester");
+        //    console.log(tester);
         this.http = http;
         this.heading = 'People';
         this.people = [];
-        //trying to solve task 6 here also, selecting the elements
-        //still having problems
-        onload = function () {
-            var tester = document.querySelector("#tester");
-            console.log(tester);
-        };
+        //}
     }
     async activate() {
         const response = await this.http.fetch('/people');
         const people = await response.json();
         this.people = people.map((person) => new __WEBPACK_IMPORTED_MODULE_2__models_person__["a" /* Person */](person));
+        //var tester = document.getElementById('#mainTable');
+        //console.log(tester);
+    }
+    attached() {
+        //var tester = document.getElementById('mainTable').style.color = "blue";
+        //not efficient but working
+        var tester2 = document.getElementsByTagName('td');
+        for (var i = 0; i < tester2.length; i++) {
+            var tester3 = tester2[i].textContent;
+            if (tester3 === "Yes") {
+                tester2[i].style.color = "green";
+            }
+            if (tester3 === "No") {
+                tester2[i].style.color = "red";
+            }
+        }
     }
 };
 __decorate([
-    __WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["b" /* observable */],
-    __metadata("design:type", Object)
-], PeopleList.prototype, "selectedDocument", void 0);
-__decorate([
-    __WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["c" /* bindable */],
+    __WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["b" /* bindable */],
     __metadata("design:type", Array)
 ], PeopleList.prototype, "people", void 0);
 PeopleList = __decorate([
-    __WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["d" /* autoinject */],
+    __WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["c" /* autoinject */],
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_aurelia_fetch_client__["a" /* HttpClient */]])
 ], PeopleList);
 
@@ -21266,7 +21281,7 @@ PeopleList = __decorate([
 /***/ "app/people/list/people-list.html":
 /***/ (function(module, exports) {
 
-module.exports = "<template>\r\n\r\n    <h2 class=\"title\">${heading}</h2>\r\n    <table id=\"mainTable\" class=\"table is-striped is-fullwidth\" ref=\"elementRef\">\r\n        <thead>\r\n            <tr>\r\n                <th>Name</th>\r\n                <th>Palindrome</th>\r\n                <th>Authorised</th>\r\n                <th>Enabled</th>\r\n                <th>Colours</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n\r\n            <!--\r\n              TODO: Step 6\r\n              Add styles to Palindrome, Authorised and Enabled values.\r\n              When the value is Yes the text colour should be Green.\r\n              When the value is No the text colour should be Red.\r\n            -->\r\n\r\n            <tr repeat.for=\"person of people\" person.bind=\"person\">\r\n                <td><a class=\"is-link\" href=\"/people/${person.id}\">${person.fullName}</a></td>\r\n                <td id=\"palindrome\">${person.palindrome ? 'Yes' : 'No'}</td>\r\n                <td>${person.authorised ? 'Yes' : 'No'}</td>\r\n                <td>${person.enabled ? 'Yes' : 'No'}</td>\r\n                <td>${person.colours | colourNames }</td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n\r\n   <!-- Task 6 response - how I would have handled it in a standard view in ASP.Net MVC program-->\r\n    <!-- I couldn't figure out how to do this with the Aurelia Typescript views-->\r\n    <script>\r\n        $(document).ready(function () {\r\n            console.log(\"picked up\");\r\n            if ($(\"#mainTable td\").val() === \"Yes\") {\r\n                $(this).css('color', 'green');\r\n            }\r\n            if ($(\"#mainTable td\").val() === \"No\") {\r\n                $(this).css('color', 'green');\r\n            }\r\n\r\n        });\r\n\r\n    </script>\r\n\r\n  \r\n\r\n</template>\r\n\r\n\r\n";
+module.exports = "<template>\r\n    <!--<require from=\"people-list\"> </require>\r\n    <people-list> </people-list>-->\r\n\r\n    <h2 class=\"title\">${heading}</h2>\r\n    <table id=\"mainTable\" class=\"table is-striped is-fullwidth\" element.ref=\"elementRef\">\r\n        <thead>\r\n            <tr>\r\n                <th>Name</th>\r\n                <th>Palindrome</th>\r\n                <th>Authorised</th>\r\n                <th>Enabled</th>\r\n                <th>Colours</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n\r\n            <!--\r\n              TODO: Step 6\r\n              Add styles to Palindrome, Authorised and Enabled values.\r\n              When the value is Yes the text colour should be Green.\r\n              When the value is No the text colour should be Red.\r\n            -->\r\n\r\n            <!--see attached method in people-lists.ts-->\r\n\r\n            <tr repeat.for=\"person of people\" person.bind=\"person\">\r\n                <td><a class=\"is-link\" href=\"/people/${person.id}\">${person.fullName}</a></td>\r\n                <td>${person.palindrome ? 'Yes' : 'No'}</td>\r\n                <td>${person.authorised ? 'Yes' : 'No'}</td>\r\n                <td>${person.enabled ? 'Yes' : 'No'}</td>\r\n                <td>${person.colours | colourNames }</td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n\r\n</template>\r\n\r\n\r\n";
 
 /***/ }),
 
@@ -21464,13 +21479,12 @@ function configure(config) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_aurelia_templating__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_aurelia_pal__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_aurelia_path__ = __webpack_require__(6);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_1_aurelia_dependency_injection__["e"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_1_aurelia_dependency_injection__["e"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_aurelia_binding__ = __webpack_require__(3);
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_6_aurelia_binding__["x"]; });
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_6_aurelia_binding__["y"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_6_aurelia_binding__["x"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_aurelia_metadata__ = __webpack_require__(4);
 /* unused harmony namespace reexport */
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_3_aurelia_templating__["h"]; });
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3_aurelia_templating__["h"]; });
 /* unused harmony namespace reexport */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_aurelia_task_queue__ = __webpack_require__(10);
 /* unused harmony namespace reexport */

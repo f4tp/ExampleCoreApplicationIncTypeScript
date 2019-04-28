@@ -1,7 +1,9 @@
 <template>
+    <!--<require from="people-list"> </require>
+    <people-list> </people-list>-->
 
     <h2 class="title">${heading}</h2>
-    <table id="mainTable" class="table is-striped is-fullwidth" ref="elementRef">
+    <table id="mainTable" class="table is-striped is-fullwidth" element.ref="elementRef">
         <thead>
             <tr>
                 <th>Name</th>
@@ -20,33 +22,17 @@
               When the value is No the text colour should be Red.
             -->
 
+            <!--see attached method in people-lists.ts-->
+
             <tr repeat.for="person of people" person.bind="person">
                 <td><a class="is-link" href="/people/${person.id}">${person.fullName}</a></td>
-                <td id="palindrome">${person.palindrome ? 'Yes' : 'No'}</td>
+                <td>${person.palindrome ? 'Yes' : 'No'}</td>
                 <td>${person.authorised ? 'Yes' : 'No'}</td>
                 <td>${person.enabled ? 'Yes' : 'No'}</td>
                 <td>${person.colours | colourNames }</td>
             </tr>
         </tbody>
     </table>
-
-   <!-- Task 6 response - how I would have handled it in a standard view in ASP.Net MVC program-->
-    <!-- I couldn't figure out how to do this with the Aurelia Typescript views-->
-    <script>
-        $(document).ready(function () {
-            console.log("picked up");
-            if ($("#mainTable td").val() === "Yes") {
-                $(this).css('color', 'green');
-            }
-            if ($("#mainTable td").val() === "No") {
-                $(this).css('color', 'green');
-            }
-
-        });
-
-    </script>
-
-  
 
 </template>
 

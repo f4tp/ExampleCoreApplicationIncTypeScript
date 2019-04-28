@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b9453c0afcfcdf7bd999"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d3997bb80ea388b11c4a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -5928,7 +5928,7 @@ module.exports = vendor_20ab9117cc13a042c964;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export json */
+/* harmony export (immutable) */ __webpack_exports__["b"] = json;
 /* unused harmony export HttpClientConfiguration */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HttpClient; });
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
@@ -21156,14 +21156,30 @@ let PersonEdit = class PersonEdit {
         // the user should be navigated to the list page.
         //I couldn't complete this without learning Aurelia TypeScript fully (I would have to take a tutorial on it), but this is a couple of methods I tried to use:
         //method 2 (derived from other code I have seen written in this project / research)
+        //let coloursArray = json(`${this.colourOptions}`);
+        let coloursArray = this.colourOptions;
+        let updatedPerson = {
+            authorised: `${this.person.authorised}`,
+            enabled: `${this.person.enabled}`
+            // colours: `${this.person.colours.}`,
+            //colours: json(this.colourOptions)
+        };
         var idNeeded = `${this.person.id}`.toString();
         var dataNeeded = `${this.person}`;
-        this.http.fetch('/api/people/' + dataNeeded, {
+        var putReq = this.http.fetch('/people/' + idNeeded, {
             method: 'put',
             //body: json(`${this.person}`)
-            body: `${this.person}`
+            body: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_aurelia_fetch_client__["b" /* json */])(updatedPerson)
         })
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(savedComment => {
+            //new Redirect('http://localhost:64058/people');
+            //alert(`Saved comment! ID: ${savedComment.id}`);
+            this.router.navigate('http://localhost:64058/people');
+        })
+            .catch(error => {
+            alert('Error updating person!');
+        });
         //.then(data => {
         //    console.log(data);
         //});
@@ -21253,14 +21269,14 @@ let PeopleList = class PeopleList {
     attached() {
         //var tester = document.getElementById('mainTable').style.color = "blue";
         //not efficient but working
-        var tester2 = document.getElementsByTagName('td');
-        for (var i = 0; i < tester2.length; i++) {
-            var tester3 = tester2[i].textContent;
-            if (tester3 === "Yes") {
-                tester2[i].style.color = "green";
+        var AllTdElements = document.getElementsByTagName('td');
+        for (var i = 0; i < AllTdElements.length; i++) {
+            var TextContentOfTdElement = AllTdElements[i].textContent;
+            if (TextContentOfTdElement === "Yes") {
+                AllTdElements[i].style.color = "green";
             }
-            if (tester3 === "No") {
-                tester2[i].style.color = "red";
+            if (TextContentOfTdElement === "No") {
+                AllTdElements[i].style.color = "red";
             }
         }
     }
@@ -21281,7 +21297,7 @@ PeopleList = __decorate([
 /***/ "app/people/list/people-list.html":
 /***/ (function(module, exports) {
 
-module.exports = "<template>\r\n    <!--<require from=\"people-list\"> </require>\r\n    <people-list> </people-list>-->\r\n\r\n    <h2 class=\"title\">${heading}</h2>\r\n    <table id=\"mainTable\" class=\"table is-striped is-fullwidth\" element.ref=\"elementRef\">\r\n        <thead>\r\n            <tr>\r\n                <th>Name</th>\r\n                <th>Palindrome</th>\r\n                <th>Authorised</th>\r\n                <th>Enabled</th>\r\n                <th>Colours</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n\r\n            <!--\r\n              TODO: Step 6\r\n              Add styles to Palindrome, Authorised and Enabled values.\r\n              When the value is Yes the text colour should be Green.\r\n              When the value is No the text colour should be Red.\r\n            -->\r\n\r\n            <!--see attached method in people-lists.ts-->\r\n\r\n            <tr repeat.for=\"person of people\" person.bind=\"person\">\r\n                <td><a class=\"is-link\" href=\"/people/${person.id}\">${person.fullName}</a></td>\r\n                <td>${person.palindrome ? 'Yes' : 'No'}</td>\r\n                <td>${person.authorised ? 'Yes' : 'No'}</td>\r\n                <td>${person.enabled ? 'Yes' : 'No'}</td>\r\n                <td>${person.colours | colourNames }</td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n\r\n</template>\r\n\r\n\r\n";
+module.exports = "<template>\r\n    <!--<require from=\"people-list\"> </require>\r\n    <people-list> </people-list>-->\r\n\r\n    <h2 class=\"title\">${heading}</h2>\r\n    <table id=\"mainTable\" class=\"table is-striped is-fullwidth\" element.ref=\"elementRef\">\r\n        <thead>\r\n            <tr>\r\n                <th>Name</th>\r\n                <th>Palindrome</th>\r\n                <th>Authorised</th>\r\n                <th>Enabled</th>\r\n                <th>Colours</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n\r\n            <!--\r\n              TODO: Step 6\r\n              Add styles to Palindrome, Authorised and Enabled values.\r\n              When the value is Yes the text colour should be Green.\r\n              When the value is No the text colour should be Red.\r\n            -->\r\n\r\n            <!--see attached method in people-lists.ts for answer response-->\r\n\r\n            <tr repeat.for=\"person of people\" person.bind=\"person\">\r\n                <td><a class=\"is-link\" href=\"/people/${person.id}\">${person.fullName}</a></td>\r\n                <td>${person.palindrome ? 'Yes' : 'No'}</td>\r\n                <td>${person.authorised ? 'Yes' : 'No'}</td>\r\n                <td>${person.enabled ? 'Yes' : 'No'}</td>\r\n                <td>${person.colours | colourNames }</td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n\r\n</template>\r\n\r\n\r\n";
 
 /***/ }),
 

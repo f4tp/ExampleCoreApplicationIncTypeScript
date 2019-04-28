@@ -51,14 +51,39 @@ export class PersonEdit {
 
 
         //method 2 (derived from other code I have seen written in this project / research)
+
+        //let coloursArray = json(`${this.colourOptions}`);
+        let coloursArray = this.colourOptions;
+
+         let updatedPerson = {
+            
+             authorised: `${this.person.authorised}`,
+             enabled: `${this.person.enabled}`
+            // colours: `${this.person.colours.}`,
+             //colours: json(this.colourOptions)
+
+        }
+
+
         var idNeeded = `${this.person.id}`.toString();
         var dataNeeded = `${this.person}`;
-        this.http.fetch('/api/people/' + dataNeeded, {
+        var putReq = this.http.fetch('/people/' + idNeeded, {
             method: 'put',
             //body: json(`${this.person}`)
-            body: `${this.person}`
+            body: json(updatedPerson)
         })
-            .then(response => response.json())
+            .then(response => response.json(
+            ))
+            .then(savedComment => {
+                //new Redirect('http://localhost:64058/people');
+                //alert(`Saved comment! ID: ${savedComment.id}`);
+                this.router.navigate('http://localhost:64058/people');
+            })
+            .catch(error => {
+                alert('Error updating person!');
+            });
+
+
             //.then(data => {
             //    console.log(data);
             //});

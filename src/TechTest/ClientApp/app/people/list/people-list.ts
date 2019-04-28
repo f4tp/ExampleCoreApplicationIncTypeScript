@@ -42,14 +42,14 @@ export class PeopleList {
     attached() {
         //var tester = document.getElementById('mainTable').style.color = "blue";
         //not efficient but working
-        var tester2 = document.getElementsByTagName('td');
-        for (var i = 0; i < tester2.length; i++) {
-            var tester3 = tester2[i].textContent;
-            if (tester3 === "Yes") {
-                tester2[i].style.color = "green";
+        var AllTdElements = document.getElementsByTagName('td');
+        for (var i = 0; i < AllTdElements.length; i++) {
+            var TextContentOfTdElement = AllTdElements[i].textContent;
+            if (TextContentOfTdElement === "Yes") {
+                AllTdElements[i].style.color = "green";
             }
-            if (tester3 === "No") {
-                tester2[i].style.color = "red";
+            if (TextContentOfTdElement === "No") {
+                AllTdElements[i].style.color = "red";
             }
             
         }

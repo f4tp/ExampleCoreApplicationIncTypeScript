@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d3997bb80ea388b11c4a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "48dd7cc38241cbff4ac5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -21154,53 +21154,24 @@ let PersonEdit = class PersonEdit {
         // Send a JSON request to the API with the newly updated
         // this.person object. If the response is successful then
         // the user should be navigated to the list page.
-        //I couldn't complete this without learning Aurelia TypeScript fully (I would have to take a tutorial on it), but this is a couple of methods I tried to use:
-        //method 2 (derived from other code I have seen written in this project / research)
-        //let coloursArray = json(`${this.colourOptions}`);
-        let coloursArray = this.colourOptions;
+        let selectedColours = this.person.colours;
         let updatedPerson = {
             authorised: `${this.person.authorised}`,
-            enabled: `${this.person.enabled}`
-            // colours: `${this.person.colours.}`,
-            //colours: json(this.colourOptions)
+            enabled: `${this.person.enabled}`,
+            colours: selectedColours
         };
         var idNeeded = `${this.person.id}`.toString();
-        var dataNeeded = `${this.person}`;
         var putReq = this.http.fetch('/people/' + idNeeded, {
             method: 'put',
-            //body: json(`${this.person}`)
             body: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_aurelia_fetch_client__["b" /* json */])(updatedPerson)
         })
             .then(response => response.json())
             .then(savedComment => {
-            //new Redirect('http://localhost:64058/people');
-            //alert(`Saved comment! ID: ${savedComment.id}`);
-            this.router.navigate('http://localhost:64058/people');
+            this.router.navigate('/people');
         })
             .catch(error => {
             alert('Error updating person!');
         });
-        //.then(data => {
-        //    console.log(data);
-        //});
-        //method 1 (derived from own research)
-        //HttpClient.call('http://localhost:64058/api/people/' + `${this.person.id}`, {
-        //HttpClient.call('http://localhost:64058/api/people/' + `${this.person.id}`, {
-        //    method: 'put',
-        //    body: `${this.person}`
-        //})
-        //    .success(function () {
-        //        //redirect here - as async call
-        //        new Redirect('/people');
-        //    })
-        //    .fail(function () {
-        //    })
-        //    .always(function () {
-        //    });
-        //$.post('http://localhost:64058/api/person', `${this.person}`, function (personResponse) {
-        //      return personResponse;
-        //});
-        //throw new Error('Not Implemented');
     }
     cancel() {
         this.router.navigate('people');
@@ -21219,7 +21190,7 @@ PersonEdit = __decorate([
 /***/ "app/people/edit/person-edit.html":
 /***/ (function(module, exports) {
 
-module.exports = "<template>\n  <h2 class=\"title\">${heading}</h2>\n\n  <form role=\"form\" submit.delegate=\"submit()\">\n\n    <fieldset class=\"box\">\n      <legend>User Details</legend>\n      <div class=\"field\">\n\n        <div class=\"control\">\n          <label class=\"checkbox\">\n            <input type=\"checkbox\" checked.bind=\"person.authorised\" name=\"authorised\" /> Authorised\n          </label>\n        </div>\n\n        <div class=\"control\">\n          <label class=\"checkbox\">\n            <input type=\"checkbox\" checked.bind=\"person.enabled\" name=\"enabled\" /> Enabled\n          </label>\n        </div>\n\n      </div>\n    </fieldset>\n\n    <fieldset class=\"box\">\n      <legend>Favourate Colours</legend>\n      <div class=\"field\">\n\n        <div class=\"control\" repeat.for=\"colour of colourOptions\">\n          <label class=\"checkbox\">\n            <input type=\"checkbox\" model.bind=\"colour\" checked.bind=\"person.colours\" matcher.bind=\"colourMatcher\" name=\"colours\"\n            /> ${colour.name}\n          </label>\n        </div>\n\n      </div>\n\n    </fieldset>\n\n    <div class=\"field is-grouped\">\n\n      <div class=\"control\">\n        <input class=\"button is-link\" type=\"submit\" value=\"Save Changes\" />\n      </div>\n\n      <div class=\"control\">\n        <button class=\"button is-light\" click.delegate=\"cancel()\">Cancel</button>\n      </div>\n\n    </div>\n\n  </form>\n</template>\n";
+module.exports = "<template>\n  <h2 class=\"title\">${heading}</h2>\n\n  <form role=\"form\" submit.delegate=\"submit()\">\n\n    <fieldset class=\"box\">\n      <legend>User Details</legend>\n      <div class=\"field\">\n\n        <div class=\"control\">\n          <label class=\"checkbox\">\n            <input type=\"checkbox\" checked.bind=\"person.authorised\" name=\"authorised\" /> Authorised\n          </label>\n        </div>\n\n        <div class=\"control\">\n          <label class=\"checkbox\">\n            <input type=\"checkbox\" checked.bind=\"person.enabled\" name=\"enabled\" /> Enabled\n          </label>\n        </div>\n\n      </div>\n    </fieldset>\n\n    <fieldset class=\"box\">\n      <legend>Favourite Colours</legend>\n      <div class=\"field\">\n\n        <div class=\"control\" repeat.for=\"colour of colourOptions\">\n          <label class=\"checkbox\">\n            <input type=\"checkbox\" model.bind=\"colour\" checked.bind=\"person.colours\" matcher.bind=\"colourMatcher\" name=\"colours\"\n            /> ${colour.name}\n          </label>\n        </div>\n\n      </div>\n\n    </fieldset>\n\n    <div class=\"field is-grouped\">\n\n      <div class=\"control\">\n        <input class=\"button is-link\" type=\"submit\" value=\"Save Changes\" />\n      </div>\n\n      <div class=\"control\">\n        <button class=\"button is-light\" click.delegate=\"cancel()\">Cancel</button>\n      </div>\n\n    </div>\n\n  </form>\n</template>\n";
 
 /***/ }),
 

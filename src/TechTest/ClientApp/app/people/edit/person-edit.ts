@@ -47,76 +47,29 @@ export class PersonEdit {
         // the user should be navigated to the list page.
 
         
-        //I couldn't complete this without learning Aurelia TypeScript fully (I would have to take a tutorial on it), but this is a couple of methods I tried to use:
-
-
-        //method 2 (derived from other code I have seen written in this project / research)
-
-        //let coloursArray = json(`${this.colourOptions}`);
-        let coloursArray = this.colourOptions;
-
-         let updatedPerson = {
+        let selectedColours = this.person.colours;
+        let updatedPerson = {
             
              authorised: `${this.person.authorised}`,
-             enabled: `${this.person.enabled}`
-            // colours: `${this.person.colours.}`,
-             //colours: json(this.colourOptions)
+             enabled: `${this.person.enabled}`,
+             colours: selectedColours
 
         }
 
-
         var idNeeded = `${this.person.id}`.toString();
-        var dataNeeded = `${this.person}`;
         var putReq = this.http.fetch('/people/' + idNeeded, {
             method: 'put',
-            //body: json(`${this.person}`)
             body: json(updatedPerson)
         })
             .then(response => response.json(
             ))
             .then(savedComment => {
-                //new Redirect('http://localhost:64058/people');
-                //alert(`Saved comment! ID: ${savedComment.id}`);
-                this.router.navigate('http://localhost:64058/people');
+                this.router.navigate('/people');
             })
             .catch(error => {
                 alert('Error updating person!');
             });
 
-
-            //.then(data => {
-            //    console.log(data);
-            //});
-   
-
-      //method 1 (derived from own research)
-      //HttpClient.call('http://localhost:64058/api/people/' + `${this.person.id}`, {
-      //HttpClient.call('http://localhost:64058/api/people/' + `${this.person.id}`, {
-      //    method: 'put',
-      //    body: `${this.person}`
-      //})
-      //    .success(function () {
-      //        //redirect here - as async call
-      //        new Redirect('/people');
-      //    })
-      //    .fail(function () {
-
-      //    })
-      //    .always(function () {
-
-      //    });
-
-  
-
-
-
- 
-      //$.post('http://localhost:64058/api/person', `${this.person}`, function (personResponse) {
-
-      //      return personResponse;
-      //});
-
-    //throw new Error('Not Implemented');
     }
 
   cancel() {

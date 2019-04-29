@@ -97,8 +97,8 @@ namespace TechTest.Controllers
 
 
             //Below not needed as only a partial is passed in representing only elements that should be able to be updated
-            //if (!ModelState.IsValid)
-            //return NotFound();
+            if (!ModelState.IsValid)
+                return NotFound();
 
             //get existing person
             var  ExistingPerson = PersonRepository.Get(id);

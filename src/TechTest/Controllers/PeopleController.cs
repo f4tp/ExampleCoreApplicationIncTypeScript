@@ -61,11 +61,8 @@ namespace TechTest.Controllers
             var SinglePersonInst = PersonRepository.Get(id);
 
             if (SinglePersonInst == null)
-            {
-                string[] nullArray = new string[] { };
-                return Ok(nullArray);
-
-            }
+                return NotFound();
+            
 
             //Camel case the output  not needed, this is done elsewhere in the program (after testing)
             //var SinglePersonJson = JsonConvert.SerializeObject(
@@ -77,7 +74,6 @@ namespace TechTest.Controllers
             //);
             return Ok(SinglePersonInst);
 
-            throw new NotImplementedException();
         }
 
         [HttpPut("{id}")]
@@ -96,7 +92,7 @@ namespace TechTest.Controllers
             // NotFound should be returned.
 
 
-            //Below not needed as only a partial is passed in representing only elements that should be able to be updated
+            
             if (!ModelState.IsValid)
                 return NotFound();
 
@@ -110,8 +106,9 @@ namespace TechTest.Controllers
             ExistingPerson.Authorised = personUpdate.Authorised;
             ExistingPerson.Enabled = personUpdate.Enabled;
 
-            //have to deserialize JSON colours properties here
             ExistingPerson.Colours = personUpdate.Colours;
+
+            //Update method call
             UpdatedPerson = PersonRepository.Update(ExistingPerson);
             
            

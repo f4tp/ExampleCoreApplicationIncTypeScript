@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "48dd7cc38241cbff4ac5"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "02e971f7548f1500c595"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -9203,7 +9203,7 @@ class Person {
         //loop terminates when char found not to match
         var i = 0;
         do {
-            //iterate forwards through the string and check each character against the last one, regressing each time
+            //iterate forwards through the string and check each character against the last one, progressing / regressing relatively
             if (!(formattedFullName.charAt(i) === formattedFullName.charAt(formattedFullName.length - 1 - i))) {
                 isPalindrome = false;
             }
@@ -21154,19 +21154,22 @@ let PersonEdit = class PersonEdit {
         // Send a JSON request to the API with the newly updated
         // this.person object. If the response is successful then
         // the user should be navigated to the list page.
-        let selectedColours = this.person.colours;
+        //compose object to PUT
         let updatedPerson = {
             authorised: `${this.person.authorised}`,
             enabled: `${this.person.enabled}`,
-            colours: selectedColours
+            colours: this.person.colours
         };
+        //get id as string for URI
         var idNeeded = `${this.person.id}`.toString();
+        //Call the API and PUT the new data in from the form - all props bindable from there
         var putReq = this.http.fetch('/people/' + idNeeded, {
             method: 'put',
             body: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_aurelia_fetch_client__["b" /* json */])(updatedPerson)
         })
             .then(response => response.json())
             .then(savedComment => {
+            //navigate to list of all people if successful
             this.router.navigate('/people');
         })
             .catch(error => {
@@ -21215,31 +21218,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-//@inject(Element)
 let PeopleList = class PeopleList {
-    //public selectedDocument Document[];
-    //@observable selectedDocument;
     constructor(http) {
-        //trying to solve task 6 here also, selecting the elements
-        //still having problems
-        //onload = function () {
-        //    var tester = document.querySelector("#tester");
-        //    console.log(tester);
         this.http = http;
         this.heading = 'People';
         this.people = [];
-        //}
     }
     async activate() {
         const response = await this.http.fetch('/people');
         const people = await response.json();
         this.people = people.map((person) => new __WEBPACK_IMPORTED_MODULE_2__models_person__["a" /* Person */](person));
-        //var tester = document.getElementById('#mainTable');
-        //console.log(tester);
     }
     attached() {
-        //var tester = document.getElementById('mainTable').style.color = "blue";
-        //not efficient but working
+        //task 6 response here - not efficient but working
         var AllTdElements = document.getElementsByTagName('td');
         for (var i = 0; i < AllTdElements.length; i++) {
             var TextContentOfTdElement = AllTdElements[i].textContent;
@@ -21293,9 +21284,10 @@ class ColourNamesValueConverter {
             colours.sort((a, b) => (a.name > b.name) ? 1 : -1);
             //iterator pattern 
             colours.forEach(function (colour) {
-                stringifiedColours += colour.name + ",";
+                stringifiedColours += colour.name + ", ";
             });
-            var strippcommStrippedString = stringifiedColours.substring(0, stringifiedColours.length - 1);
+            //strip the last 2 characters off - ', '
+            var strippcommStrippedString = stringifiedColours.substring(0, stringifiedColours.length - 2);
         }
         return strippcommStrippedString;
     }

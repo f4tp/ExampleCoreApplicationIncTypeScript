@@ -20,9 +20,10 @@ export class ColourNamesValueConverter {
 
           //iterator pattern 
         colours.forEach(function (colour) {
-            stringifiedColours += colour.name + ","
+            stringifiedColours += colour.name + ", "
         });
-        var strippcommStrippedString = stringifiedColours.substring(0, stringifiedColours.length - 1);
+          //strip the last 2 characters off - ', '
+        var strippcommStrippedString = stringifiedColours.substring(0, stringifiedColours.length - 2);
 
 
       }

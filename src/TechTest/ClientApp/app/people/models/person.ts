@@ -36,6 +36,7 @@ export class Person implements IPerson {
     // spaces and should also be case insensitive.
     //
     // Example: 'Bo Bob' is a palindrome.
+
       var isPalindrome = true;
       //convert to lower case and strip whitespace
       var formattedFullName = `${this.fullName}`.toLowerCase().replace(/\s/g, "");
@@ -43,7 +44,7 @@ export class Person implements IPerson {
       //loop terminates when char found not to match
       var i = 0;
       do {
-          //iterate forwards through the string and check each character against the last one, regressing each time
+          //iterate forwards through the string and check each character against the last one, progressing / regressing relatively
           if (!(formattedFullName.charAt(i) === formattedFullName.charAt(formattedFullName.length - 1 - i))) {
               isPalindrome = false;
           }

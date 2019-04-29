@@ -62,16 +62,7 @@ namespace TechTest.Controllers
 
             if (SinglePersonInst == null)
                 return NotFound();
-            
-
-            //Camel case the output  not needed, this is done elsewhere in the program (after testing)
-            //var SinglePersonJson = JsonConvert.SerializeObject(
-            //    SinglePersonInst,
-            //    new JsonSerializerSettings
-            //    {
-            //        ContractResolver = new CamelCasePropertyNamesContractResolver()
-            //    }
-            //);
+         
             return Ok(SinglePersonInst);
 
         }
@@ -105,7 +96,6 @@ namespace TechTest.Controllers
             //update with limited properties
             ExistingPerson.Authorised = personUpdate.Authorised;
             ExistingPerson.Enabled = personUpdate.Enabled;
-
             ExistingPerson.Colours = personUpdate.Colours;
 
             //Update method call

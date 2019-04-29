@@ -46,17 +46,17 @@ export class PersonEdit {
         // this.person object. If the response is successful then
         // the user should be navigated to the list page.
 
-        
-        let selectedColours = this.person.colours;
+        //compose object to PUT
         let updatedPerson = {
-            
-             authorised: `${this.person.authorised}`,
-             enabled: `${this.person.enabled}`,
-             colours: selectedColours
-
+            authorised: `${this.person.authorised}`,
+            enabled: `${this.person.enabled}`,
+            colours: this.person.colours
         }
 
+        //get id as string for URI
         var idNeeded = `${this.person.id}`.toString();
+
+        //Call the API and PUT the new data in from the form - all props bindable from there
         var putReq = this.http.fetch('/people/' + idNeeded, {
             method: 'put',
             body: json(updatedPerson)
@@ -64,6 +64,7 @@ export class PersonEdit {
             .then(response => response.json(
             ))
             .then(savedComment => {
+                //navigate to list of all people if successful
                 this.router.navigate('/people');
             })
             .catch(error => {
